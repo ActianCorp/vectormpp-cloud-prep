@@ -1,0 +1,14 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  labels:
+    k8s-app: gcp-filestore-csi-driver
+  name: vectormpp-filestore-multishare-nfs
+allowVolumeExpansion: true
+parameters:
+  tier: enterprise
+  multishare: "true"
+  network: <VPC-NAME>
+provisioner: filestore.csi.storage.gke.io
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
