@@ -166,3 +166,17 @@ Without this step, the sample data preload process will fail due to **access den
 
 > 💡 This step is only required if the **sample data preload feature** is enabled.
 
+
+---
+
+## 6. Validation
+```bash
+aws configure --profile <PROFILE-NAME> set aws_access_key_id "<KEY>"
+aws configure --profile <PROFILE-NAME> set aws_secret_access_key "<SECRET>"
+aws configure --profile <PROFILE-NAME> set region <REGION>
+aws eks update-kubeconfig --region <REGION> --name <CLUSTER-NAME> --profile <PROFILE-NAME>
+
+kubectl get nodes
+kubectl get serviceaccount --all-namespaces
+kubectl get svc
+```

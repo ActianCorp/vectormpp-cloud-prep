@@ -10,8 +10,9 @@ This guide explains how to prepare your Microsoft Azure environment for installi
 - [2. Preparing a GCS Bucket for Sample Data (Optional)](#2-preparing-a-gcs-bucket-for-sample-data-optional)
 - [3. Credential Setup](#3-credential-setup)
 - [4. AKS Cluster Provisioning](#4-aks-cluster-provisioning)
-- [5. Apply Required StorageClass](#5-apply-required-storageclass)
-- [6. Next Steps](#6-next-steps)
+- [5. Validation](#5-validation)
+- [6. Apply Required StorageClass](#6-apply-required-storageclass)
+- [7. Next Steps](#7-next-steps)
 
 ---
 
@@ -138,7 +139,21 @@ terraform apply -var cluster_name=<CLUSTER-NAME> -var cluster_version=<CLUSTER-V
 
 ---
 
-## 5. Apply Required StorageClass
+## 5. Validation
+
+```bash
+az login --service-principal -u <AZURE_AKS_CLIENT_ID> -p <AZURE_AKS_CLIENT_SECRET> --tenant <ARM_TENANT_ID>
+az account set --subscription <ARM_SUBSCRIPTION_ID>
+az aks get-credentials --resource-group <AZURE_RESOURCE_GROUP> --name <CLUSTER_NAME>
+
+kubectl get nodes
+kubectl get serviceaccount --all-namespaces
+kubectl get svc
+```
+
+---
+
+## 6. Apply Required StorageClass
 
 After the AKS cluster is created, apply a required custom `StorageClass`.
 
@@ -160,6 +175,6 @@ This storage class uses Azure File Premium via CSI.
 
 ---
 
-## 6. Next Steps
+## 7. Next Steps
 
 Once credentials, the cluster, and the required `StorageClass` are ready, proceed to the [VectorMPP Kubernetes installation guide](#).
